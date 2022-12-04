@@ -8,7 +8,7 @@ contract ExerciceSolution is ERC20, IExerciceSolution
         _mint(msg.sender,853175455000000000000000000);
     }
     mapping(address => bool) public isAllowed;
-    mapping(address => uint) public isLevel;
+    mapping(address => uint) public Level;
     function symbol() public override(ERC20, IExerciceSolution) view returns (string memory){
         return "jdgpE";
     }
@@ -19,10 +19,10 @@ contract ExerciceSolution is ERC20, IExerciceSolution
     }
     function buyToken() external payable override returns (bool){
         require(isAllowed[msg.sender] == true);
-        if (isLevel[msg.sender] == 1){
+        if (Level[msg.sender] == 1){
             _mint(msg.sender, msg.value);
         }
-        if (isLevel[msg.sender] == 2){
+        if (Level[msg.sender] == 2){
             _mint(msg.sender, msg.value*2);
         }
         else{
@@ -35,7 +35,7 @@ contract ExerciceSolution is ERC20, IExerciceSolution
         return true;
     }
     function customerTierLevel(address customerAddress) external override returns (uint256){
-        isLevel[customerAddress] = 2;
+        Level[customerAddress] = 2;
         return 2;
     }
 }
